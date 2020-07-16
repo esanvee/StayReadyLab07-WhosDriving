@@ -23,4 +23,12 @@ public abstract class Bike implements Drivable {
      * @return PSI as an Integer
      */
     public abstract Integer recommendedTirePressure();
+
+    public Double getTopSpeed() {
+        return null;
+    }
+
+    public Integer transport(Double distance){
+        return null;
+    }
 }

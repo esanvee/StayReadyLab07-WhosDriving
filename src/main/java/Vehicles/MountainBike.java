@@ -3,6 +3,10 @@ package Vehicles;
 import Driving.Bike;
 
 public class MountainBike extends Bike {
+
+  
+    int PSI = 30;
+
     /**
      * The top speed of a mountain bike should be 28.5
      * but for every 1 PSI under the recommended tire
@@ -13,7 +17,8 @@ public class MountainBike extends Bike {
      */
     @Override
     public Double getTopSpeed() {
-        return null;
+        int deaccelerate = recommendedTirePressure() - PSI;
+        return 28.5 - deaccelerate;
     }
 
 
@@ -32,7 +37,22 @@ public class MountainBike extends Bike {
      */
     @Override
     public Integer transport(Double distance) {
-        return null;
+
+        //deflate tires
+
+        PSI -= (int)(distance / 30); //Round PSI, anything below 1 is 0
+
+        if(PSI < 20){
+            PSI = 20;
+        }
+
+        //get time
+
+        double hours = distance / getTopSpeed();
+        double seconds = hours * 60 * 60;
+
+
+        return (int) seconds;
     }
 
     /**
@@ -43,7 +63,7 @@ public class MountainBike extends Bike {
      */
     @Override
     public Integer getTirePressure() {
-        return null;
+        return PSI;
     }
 
     /**
@@ -51,6 +71,7 @@ public class MountainBike extends Bike {
      */
     @Override
     public void inflateTires() {
+        PSI = recommendedTirePressure();
 
     }
 
@@ -60,6 +81,6 @@ public class MountainBike extends Bike {
      */
     @Override
     public Integer recommendedTirePressure() {
-        return null;
+        return 30;
     }
 }

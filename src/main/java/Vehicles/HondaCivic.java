@@ -3,6 +3,10 @@ package Vehicles;
 import Driving.Car;
 
 public class HondaCivic extends Car {
+
+    private int milesNeededForOilChange = 50000;
+    private double milesTraveled = 0;
+
     /**
      * A civic should need an oil change every
      * 50,000 miles traveled. Once the oil is
@@ -13,7 +17,13 @@ public class HondaCivic extends Car {
      */
     @Override
     public Boolean needsOilChange() {
-        return null;
+
+        if (getDistanceTraveled() >= milesNeededForOilChange){
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -26,6 +36,12 @@ public class HondaCivic extends Car {
     @Override
     public void changeOil() {
 
+        if (needsOilChange()){//if true
+
+            milesNeededForOilChange = (int)milesTraveled + 50000; //update miles needed to change oil
+
+        }
+
     }
 
     /**
@@ -37,7 +53,12 @@ public class HondaCivic extends Car {
      */
     @Override
     public Boolean checkEngineLight() {
-        return null;
+
+        if(needsOilChange()){
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -50,7 +71,8 @@ public class HondaCivic extends Car {
      */
     @Override
     public Double getDistanceTraveled() {
-        return null;
+
+        return milesTraveled;
     }
 
     /**
@@ -59,7 +81,7 @@ public class HondaCivic extends Car {
      */
     @Override
     public Double getTopSpeed() {
-        return null;
+        return 70.0;
     }
 
     /**
@@ -72,6 +94,14 @@ public class HondaCivic extends Car {
      */
     @Override
     public Integer transport(Double distance) {
-        return null;
+        milesTraveled += distance;//increase milage
+
+        //if I go 60 MPH for 60 miles, it takes one hour
+
+        double hours = distance / getTopSpeed();
+        double seconds = hours * 60 * 60;
+
+
+        return (int) seconds;
     }
 }
